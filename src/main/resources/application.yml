@@ -1,0 +1,15 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  profiles:
+    active: local
+  jackson:
+    serialization:
+        fail-on-empty-beans: false
+  servlet:
+    multipart:
+      max-file-size: 500MB
+server:
+  port: 8090
+
