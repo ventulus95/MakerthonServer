@@ -78,7 +78,9 @@ class KangwonServerApplicationTests {
                     + "% confidence.");
 
         }
-
+        List<ComparedFace> uncompared = compareFacesResult.getUnmatchedFaces();
+        System.out.println("There was " + uncompared.size()
+                + " face(s) that did not match");
     }
 
 }

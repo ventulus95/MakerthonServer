@@ -42,6 +42,9 @@ public class User implements UserDetails {
                 .collect(Collectors.toList());
     }
 
+    @Column(length = 100, nullable = false, unique = true)
+    private String profilePictureName;
+
     @Override
     public String getPassword() {
         return password;
