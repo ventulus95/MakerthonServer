@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Service
 @NoArgsConstructor
@@ -44,7 +45,8 @@ public class S3Service {
     }
 
     public String upload(MultipartFile file) throws IOException {
-        String fileName = "makerthon/profile/"+file.getOriginalFilename();
+        LocalDateTime time = LocalDateTime.now();
+        String fileName = "makerthon/profile/"+time.toString()+"_"+file.getOriginalFilename();
 
         if (!"".equals(fileName) && fileName != null) {
             boolean isExistObject = s3.doesObjectExist(bucket, fileName);
