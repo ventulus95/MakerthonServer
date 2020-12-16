@@ -5,6 +5,7 @@ import com.makerthon.kangwonServer.domain.CurrentUser;
 import com.makerthon.kangwonServer.domain.User;
 import com.makerthon.kangwonServer.domain.UserDto;
 import com.makerthon.kangwonServer.domain.UserRepository;
+import com.makerthon.kangwonServer.service.RaspberrypiSocketService;
 import com.makerthon.kangwonServer.service.RekognitionService;
 import com.makerthon.kangwonServer.service.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final S3Service s3Service;
     private final RekognitionService rekognitionService;
+    private final RaspberrypiSocketService raspberrypiSocketService;
 
     @PostMapping("/signup")
     public Long join(UserDto userDto) throws IOException {
@@ -56,7 +58,12 @@ public class UserController {
     }
 
     @PostMapping("/user/carFaceVerified")
-    public boolean FaceVerified(@CurrentUser User user, MultipartFile picture){
-        return rekognitionService.matchingFace(user, picture);
+    public boolean FaceVerified(@CurrentUser User user, MultipartFile picture) throws IOException {
+        boolean result = rekognitionService.matchingFace(user, picture);
+        if(result)
+            raspberrypiSocketService.engineStart();
+        return result;
     }
+
+
 }

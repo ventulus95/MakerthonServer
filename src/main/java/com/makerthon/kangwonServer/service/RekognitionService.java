@@ -45,7 +45,6 @@ public class RekognitionService {
 
         // Call operation
         CompareFacesResult compareFacesResult=rekognitionClient.compareFaces(request);
-
         // Display results
         List<CompareFacesMatch> faceDetails = compareFacesResult.getFaceMatches();
         try{
